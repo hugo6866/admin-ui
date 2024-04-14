@@ -16,7 +16,7 @@ function App() {
             <Route path="users">
               <Route index element={<List />}></Route>
               <Route path=":userId" element={<Single />}></Route>
-              <Route path="new" element={<New />}></Route>
+              <Route path="new" element={<New />}></Route>1
             </Route>
           </Route>
         </Routes>
