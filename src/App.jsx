@@ -1,4 +1,5 @@
 import Home from "./pages/home/Home";
+import Category from "./pages/category/Category";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
@@ -35,6 +36,9 @@ function App() {
               ></Route>
               1
             </Route>
+          </Route>
+          <Route path="category">
+            <Route index element={<Category />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

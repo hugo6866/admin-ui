@@ -6,6 +6,7 @@ import ProductIcon from "@mui/icons-material/Inventory";
 import OrdersIcon from "@mui/icons-material/ShoppingCart";
 import ProfilIcon from "@mui/icons-material/Person2";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CategoryIcon from "@mui/icons-material/Category";
 const Sidebar = () => {
   return (
     <div className="sidebar">
@@ -39,6 +40,12 @@ const Sidebar = () => {
             <OrdersIcon className="icon"></OrdersIcon>
             <span>Orders</span>
           </li>
+          <Link to="/category">
+            <li>
+              <CategoryIcon className="icon"></CategoryIcon>
+              <span>Category</span>
+            </li>
+          </Link>
           <p className="title">USER</p>
           <li>
             <ProfilIcon className="icon"></ProfilIcon>
