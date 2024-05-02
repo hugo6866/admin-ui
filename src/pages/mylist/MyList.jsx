@@ -1,9 +1,9 @@
-import "./category.scss";
+import "./mylist.scss";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Widget from "../../components/widget/Widget";
 import Mydatatable from "../../components/mydatatable/Mydatatable";
-const Category = () => {
+const MyList = () => {
   return (
     <div className="category">
       <Sidebar />
@@ -20,4 +20,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default MyList;

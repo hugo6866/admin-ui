@@ -1,11 +1,11 @@
 import Home from "./pages/home/Home";
-import Category from "./pages/category/Category";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formsource";
+import MyList from "./pages/mylist/MyList";
 function App() {
   return (
     <>
@@ -38,7 +38,7 @@ function App() {
             </Route>
           </Route>
           <Route path="category">
-            <Route index element={<Category />}></Route>
+            <Route index element={<MyList />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
