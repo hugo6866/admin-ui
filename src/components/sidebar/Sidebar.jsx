@@ -20,8 +20,10 @@ const Sidebar = () => {
         <ul>
           <p className="title">MAIN</p>
           <li>
+          <Link to="/users">
             <DashboardIcon className="icon"></DashboardIcon>
             <span>Dashboard</span>
+            </Link>
           </li>
           <p className="title">LIST</p>
           <Link to="/users">
