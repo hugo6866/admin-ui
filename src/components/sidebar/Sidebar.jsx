@@ -7,7 +7,10 @@ import OrdersIcon from "@mui/icons-material/ShoppingCart";
 import ProfilIcon from "@mui/icons-material/Person2";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CategoryIcon from "@mui/icons-material/Category";
+import { DarkModeContext } from './../../context/darkModeContext';
+import { useContext } from "react";
 const Sidebar = () => {
+  const {dispatch} = useContext(DarkModeContext)
   return (
     <div className="sidebar">
       <div className="top">
@@ -19,12 +22,12 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
-          <li>
           <Link to="/">
+          <li>
             <DashboardIcon className="icon"></DashboardIcon>
             <span>Dashboard</span>
-            </Link>
           </li>
+          </Link>
           <p className="title">LIST</p>
           <Link to="/users">
             <li>
@@ -60,8 +63,8 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="bottom">
-        <div className="colorOption"></div>
-        <div className="colorOption"></div>
+        <div className="colorOption" onClick={()=> dispatch({ type: "LIGHT"})}></div>
+        <div className="colorOption" onClick={()=> dispatch({ type: "DARK"})}></div>
       </div>
     </div>
   );
