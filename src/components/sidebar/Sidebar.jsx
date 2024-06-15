@@ -56,7 +56,7 @@ const Sidebar = () => {
             <OrdersIcon className="icon"></OrdersIcon>
             <span>Orders</span>
           </li>
-          <Link to="/category">
+          <Link to="/categories">
             <li>
               <CategoryIcon className="icon"></CategoryIcon>
               <span>Category</span>
@@ -82,3 +82,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+  

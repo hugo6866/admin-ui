@@ -51,6 +51,8 @@ function App() {
               />
             </Route>
             <Route path="categories">
+            <Route index element={<MyList />}></Route>
+
               <Route index element={<RequireAuth><MyList /></RequireAuth>}></Route>
             </Route>
           </Route>

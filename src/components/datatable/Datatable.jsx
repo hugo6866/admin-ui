@@ -52,6 +52,8 @@ const actionColumn = [
 ];
 
 const Datatable = () => {
+  //const location = useLocation();
+  //const type = location.pathname.split('/')[1];
   return (
     <div className="datatable">
       <div className="datatableTitle">
