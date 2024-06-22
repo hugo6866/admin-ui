@@ -16,12 +16,11 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const New = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const [data, setData] = useState({});
   const [per, setPerc] = useState(null);
 
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
   const location = useLocation(); 
   const type = location.pathname.split('/')[1]; 
 
@@ -29,7 +28,6 @@ const New = ({ inputs, title }) => {
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
 
-      //console.log(name);
       const storageRef = ref(storage, name);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -38,6 +36,7 @@ const New = ({ inputs, title }) => {
         (snapshot) => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+
           setPerc(progress);
 
           switch (snapshot.state) {
@@ -61,10 +60,10 @@ const New = ({ inputs, title }) => {
         }
       );
     };
-    file && uploadFile();
+    if (file) {
+      uploadFile();
+    }
   }, [file]);
-
-  //console.log(data);
 
   const handleInput = (e) => {
     const id = e.target.id;
@@ -96,7 +95,7 @@ const New = ({ inputs, title }) => {
           break;
       } 
       
-      navigate(-1)
+      navigate(-1);
     } catch (err) {
       console.log(err);
     }
@@ -118,7 +117,10 @@ const New = ({ inputs, title }) => {
                   ? URL.createObjectURL(file)
                   : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
               }
-              alt=""
+              alt="Selected file"
+              onError={(e) => {
+                e.target.src = "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"; // Fallback if image fails to load
+              }}
             />
           </div>
           <div className="right">
@@ -130,7 +132,11 @@ const New = ({ inputs, title }) => {
                 <input
                   type="file"
                   id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
+                  onChange={(e) => {
+                    if (e.target.files[0]) {
+                      setFile(e.target.files[0]);
+                    }
+                  }}
                   style={{ display: "none" }}
                 />
               </div>
