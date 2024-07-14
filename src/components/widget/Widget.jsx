@@ -34,10 +34,10 @@ const Widget = ({ type }) => {
       break;
     case "order":
       data = {
-        title: "ORDERS",
+        title: "Products",
         isMoney: false,
         link: "View all orders",
-        query: "users",
+        query: "orders",
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -54,7 +54,35 @@ const Widget = ({ type }) => {
         title: "EARNINGS",
         isMoney: true,
         link: "View net earnings",
-        query: "users",
+        query: "earnings",
+        icon: (
+          <MonetizationOnOutlinedIcon
+            className="icon"
+            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+          />
+        ),
+      };
+      break;
+    case "product":
+      data = {
+        title: "PRODUCTS",
+        isMoney: false,
+        link: "View all products",
+        query: "products",
+        icon: (
+          <MonetizationOnOutlinedIcon
+            className="icon"
+            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
+          />
+        ),
+      };
+      break;
+    case "category":
+      data = {
+        title: "CATEGORIES",
+        isMoney: false,
+        link: "View all categories",
+        query: "categories",
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -66,7 +94,7 @@ const Widget = ({ type }) => {
     case "balance":
       data = {
         title: "BALANCE",
-        isMoney: true,
+        isMoney: false,
         link: "See details",
         query: "users",
         icon: (
@@ -126,13 +154,6 @@ const Widget = ({ type }) => {
           {data.isMoney && "$"} {amount}
         </div>
         <div className="link">{data.link}</div>
-      </div>
-      <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {diff} %
-        </div>
-        {data.icon}
       </div>
       <div className="right">
         <div className={`percentage ${diff < 0 ? "negative" : "positive"}`}>

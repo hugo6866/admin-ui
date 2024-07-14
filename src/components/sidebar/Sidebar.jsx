@@ -7,23 +7,23 @@ import OrdersIcon from "@mui/icons-material/ShoppingCart";
 import ProfilIcon from "@mui/icons-material/Person2";
 import LogoutIcon from "@mui/icons-material/Logout";
 import CategoryIcon from "@mui/icons-material/Category";
-import { DarkModeContext } from './../../context/darkModeContext';
+import { DarkModeContext } from "./../../context/darkModeContext";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
-  const { dispatch: dispatchAuth } = useContext(AuthContext); // Note the change here
+  const { dispatch: dispatchAuth } = useContext(AuthContext); 
   const { dispatch } = useContext(DarkModeContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatchAuth({ type: "LOGOUT" });
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <div className="sidebar">
+    <div className="sidebar" data-test="sidebar">
       <div className="top">
         <Link to="/">
           <span className="logo">Store</span>
@@ -74,12 +74,17 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="bottom">
-        <div className="colorOption" onClick={() => dispatch({ type: "LIGHT" })}></div>
-        <div className="colorOption" onClick={() => dispatch({ type: "DARK" })}></div>
+        <div
+          className="colorOption"
+          onClick={() => dispatch({ type: "LIGHT" })}
+        ></div>
+        <div
+          className="colorOption"
+          onClick={() => dispatch({ type: "DARK" })}
+        ></div>
       </div>
     </div>
   );
 };
 
 export default Sidebar;
-  

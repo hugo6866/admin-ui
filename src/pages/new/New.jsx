@@ -3,12 +3,12 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
-import { 
+import {
   doc,
   serverTimestamp,
   setDoc,
   addDoc,
-  collection
+  collection,
 } from "firebase/firestore";
 import { auth, db, storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -21,8 +21,8 @@ const New = ({ inputs, title }) => {
   const [per, setPerc] = useState(null);
 
   const navigate = useNavigate();
-  const location = useLocation(); 
-  const type = location.pathname.split('/')[1]; 
+  const location = useLocation();
+  const type = location.pathname.split("/")[1];
 
   useEffect(() => {
     const uploadFile = () => {
@@ -34,7 +34,8 @@ const New = ({ inputs, title }) => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
 
           setPerc(progress);
@@ -86,15 +87,15 @@ const New = ({ inputs, title }) => {
             ...data,
             timeStamp: serverTimestamp(),
           });
-          break; 
+          break;
         default:
           await addDoc(collection(db, type), {
             ...data,
             timeStamp: serverTimestamp(),
           });
           break;
-      } 
-      
+      }
+
       navigate(-1);
     } catch (err) {
       console.log(err);
@@ -119,7 +120,8 @@ const New = ({ inputs, title }) => {
               }
               alt="Selected file"
               onError={(e) => {
-                e.target.src = "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"; // Fallback if image fails to load
+                e.target.src =
+                  "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"; // Fallback if image fails to load
               }}
             />
           </div>
@@ -152,7 +154,11 @@ const New = ({ inputs, title }) => {
                   />
                 </div>
               ))}
-              <button disabled={per !== null && per < 100} type="submit">
+              <button
+                disabled={per !== null && per < 100}
+                data-testid="submit"
+                type="submit"
+              >
                 Send
               </button>
             </form>

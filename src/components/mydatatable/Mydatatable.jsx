@@ -1,30 +1,79 @@
 import "./mydatatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
+import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { Link, useLocation } from "react-router-dom";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "Name", width: 130 },
-];
+const Mydatatable = ({ title, columns }) => {
+  const type = location.pathname.split("/")[1];
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const unsub = onSnapshot(
+      collection(db, type),
+      (snapShot) => {
+        let list = [];
+        snapShot.docs.forEach((doc) => {
+          list.push({ id: doc.id, ...doc.data() });
+        });
+        setData(list);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: 22 },
-  { id: 6, lastName: "Melisandre", firstName: "Joko", age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-];
+    return () => {
+      unsub();
+    };
+  }, [type]);
 
-const mydatatable = ({ title }) => {
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, type, id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const actionColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="cellAction">
+            <span>
+              <span
+                className="deleteButton"
+                onClick={() => handleDelete(params.row.id)}
+              >
+                Delete
+              </span>
+            </span>
+          </div>
+        );
+      },
+    },
+  ];
   return (
     <div className="mydatatable">
-      <div className="mydatatableTitle">{title}</div>
+      <div className="mydatatableTitle">
+        {/* {type.toUpperCase()} */}
+        {title}
+        <Link
+          to={`/${type}/new`}
+          data-testid="add-new"
+          style={{ textDecoration: "none" }}
+        >
+          Add New
+        </Link>
+      </div>
       <DataGrid
-        rows={rows}
-        columns={columns}
+        className="datagrid"
+        rows={data}
+        columns={columns.concat(actionColumn)}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
@@ -37,4 +86,4 @@ const mydatatable = ({ title }) => {
   );
 };
 
-export default mydatatable;
+export default Mydatatable;

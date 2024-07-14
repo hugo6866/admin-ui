@@ -3,7 +3,8 @@ import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Widget from "../../components/widget/Widget";
 import Mydatatable from "../../components/mydatatable/Mydatatable";
-const MyList = () => {
+import List from "../list/List";
+const MyList = ({ columns }) => {
   return (
     <div className="category">
       <Sidebar />
@@ -11,10 +12,10 @@ const MyList = () => {
         <Navbar />
         <div className="widgets">
           <Widget type="user" />
-          <Widget type="order" />
-          <Widget type="earning" />
+          <Widget type="product" />
+          <Widget type="category" />
         </div>
-        <Mydatatable title="All Data" />
+        <Mydatatable title="All Data" columns={columns} />
       </div>
     </div>
   );

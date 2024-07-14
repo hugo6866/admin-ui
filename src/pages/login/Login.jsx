@@ -4,23 +4,26 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { LightModeOutlined } from "@mui/icons-material";
+import { DarkModeContext } from "../../context/darkModeContext";
+
 const Login = () => {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const { darkMode, dispatch: darkModeDispatch } = useContext(DarkModeContext);
+  const { dispatch: authDispatch } = useContext(AuthContext);
 
-  const { dispatch } = useContext(AuthContext);
   const handleLogin = (e) => {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-        //console.log(user);
-        dispatch({ type: "LOGIN", payload: user });
+        authDispatch({ type: "LOGIN", payload: user });
         navigate("/");
       })
       .catch(() => {
@@ -47,6 +50,19 @@ const Login = () => {
           Login
         </button>
         {error && <span>Wrong email or password!</span>}
+        <div className="dark-mode-toggle">
+          {darkMode ? (
+            <LightModeOutlined
+              className="icon"
+              onClick={() => darkModeDispatch({ type: "TOGGLE" })}
+            />
+          ) : (
+            <DarkModeOutlinedIcon
+              className="icon"
+              onClick={() => darkModeDispatch({ type: "TOGGLE" })}
+            />
+          )}
+        </div>
       </form>
     </div>
   );
